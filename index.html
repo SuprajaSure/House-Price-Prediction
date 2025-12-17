@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>California House Price Predictor</h1>
+
+    {% if prediction is not none %}
+    <div class="alert success">
+        Predicted Median House Price: <strong>${{ '{:,.2f}'.format(prediction * 100000) }}</strong>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <div class="grid">
+            <div class="field">
+                <label for="MedInc">Median Income (in $10,000s)</label>
+                <input type="number" step="0.01" name="MedInc" required>
+            </div>
+            <div class="field">
+                <label for="HouseAge">Average House Age (years)</label>
+                <input type="number" step="0.1" name="HouseAge" required>
+            </div>
+            <div class="field">
+                <label for="AveRooms">Average Rooms</label>
+                <input type="number" step="0.1" name="AveRooms" required>
+            </div>
+            <div class="field">
+                <label for="AveBedrms">Average Bedrooms</label>
+                <input type="number" step="0.1" name="AveBedrms" required>
+            </div>
+            <div class="field">
+                <label for="Population">Population</label>
+                <input type="number" step="1" name="Population" required>
+            </div>
+            <div class="field">
+                <label for="AveOccup">Average Occupancy</label>
+                <input type="number" step="0.1" name="AveOccup" required>
+            </div>
+            <div class="field">
+                <label for="Latitude">Latitude</label>
+                <input type="number" step="0.0001" name="Latitude" required>
+            </div>
+            <div class="field">
+                <label for="Longitude">Longitude</label>
+                <input type="number" step="0.0001" name="Longitude" required>
+            </div>
+        </div>
+        <button type="submit">Predict Price</button>
+    </form>
+
+    <p class="note">
+        Data is based on California Housing dataset from scikit-learn.
+    </p>
+</div>
+</body>
+</html>
